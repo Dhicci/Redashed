@@ -9,7 +9,7 @@ public class TimeBody : MonoBehaviour
 
 	public bool destroy_after = false;
 
-	public float recordTime = 7f;
+	public float recordTime = 5f;
 
 	public List<PointInTime> pointsInTime;
 
@@ -54,7 +54,6 @@ public class TimeBody : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("destroyed");
 			if(destroy_after == true)
             {
 				Destroy(gameObject);

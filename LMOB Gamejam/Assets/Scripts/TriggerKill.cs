@@ -16,7 +16,6 @@ public class TriggerKill : MonoBehaviour
         //Kill player
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("moi");
             game_manager.GetComponent<GameManager>().PlayerDeath();
         }
         else

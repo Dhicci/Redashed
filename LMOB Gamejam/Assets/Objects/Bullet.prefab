@@ -172,4 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf04198dcbd62b4e91db16865ae7327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordTime: 7
+  isRewinding: 0
+  destroy_after: 0
+  recordTime: 5

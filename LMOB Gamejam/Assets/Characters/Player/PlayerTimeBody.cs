@@ -17,7 +17,11 @@ public class PlayerTimeBody : MonoBehaviour
 
 	Vector3 start_pos, drift_pos;
 
-	private float timer;
+	private float timer = 0;
+
+	private bool is_drifting = false;
+
+	float drift_time = 0;
 
 	// Use this for initialization
 	void Start()
@@ -46,24 +50,40 @@ public class PlayerTimeBody : MonoBehaviour
 		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
 	}
 
-	/*public void StartRewind()
-	{
-		rb.velocity = new Vector3(0, 0, 0);
-		rb.isKinematic = true;
-		PointInTime pointInTime = pointsInTime[pointsInTime.Count - 1];
-		transform.position = pointInTime.position;
-		transform.rotation = pointInTime.rotation;
-		pointsInTime.Clear();
-	}
-
-	public void StopRewind()
-	{
-		isRewinding = false;
-		rb.isKinematic = false;
-	}*/
-
 	public void TakePosition(float time_left)
     {
+		drift_time = time_left;
 		start_pos = pointsInTime[pointsInTime.Count - 1].position;
+		drift_pos = transform.position;
+		is_drifting = true;
+		rb.isKinematic = true;
 	}
+
+	private void StopDrift()
+    {
+		rb.velocity = new Vector3(0, 0, 0);
+		rb.isKinematic = false;
+		is_drifting = false;
+		transform.position = start_pos;
+		pointsInTime.Clear();
+		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+	}
+
+    private void Update()
+    {
+        if (is_drifting)
+        {
+			timer += Time.deltaTime;
+			if (timer > drift_time)
+            {
+				timer = 0;
+				StopDrift();
+            }
+			else
+            {
+				float ratio = timer / drift_time;
+				transform.position = Vector3.Lerp(drift_pos, start_pos, ratio);
+            }
+        }
+    }
 }

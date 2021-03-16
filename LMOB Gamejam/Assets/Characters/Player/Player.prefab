@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 510864235417281531}
   - component: {fileID: 510864235417281530}
   - component: {fileID: 510864235417281533}
+  - component: {fileID: 213216666}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 510864235417281533}
   runSpeed: 60
+  time_out: 0
 --- !u!114 &510864235417281533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +236,21 @@ MonoBehaviour:
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &213216666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510864235417281532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb714ab006ee4cb489fba17b47c6557c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  destroy_after: 0
+  recordTime: 5
 --- !u!1 &510864235934546388
 GameObject:
   m_ObjectHideFlags: 0
