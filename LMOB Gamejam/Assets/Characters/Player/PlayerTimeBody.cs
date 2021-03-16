@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeBody : MonoBehaviour
+public class PlayerTimeBody : MonoBehaviour
 {
 
 	public bool isRewinding = false;
@@ -15,6 +15,10 @@ public class TimeBody : MonoBehaviour
 
 	Rigidbody2D rb;
 
+	Vector3 start_pos, drift_pos;
+
+	private float timer;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -22,46 +26,14 @@ public class TimeBody : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Return))
-        {
-			StartRewind();
-		}
-		if (Input.GetKeyUp(KeyCode.Return))
-        {
-			StopRewind();
-		}
-	}
-
 	void FixedUpdate()
 	{
 		if (isRewinding)
-			Rewind();
+        {
+
+        }
 		else
 			Record();
-	}
-
-	void Rewind()
-	{
-		if (pointsInTime.Count > 0)
-		{
-			PointInTime pointInTime = pointsInTime[0];
-			transform.position = pointInTime.position;
-			transform.rotation = pointInTime.rotation;
-			pointsInTime.RemoveAt(0);
-		}
-		else
-		{
-			Debug.Log("destroyed");
-			if(destroy_after == true)
-            {
-				Destroy(gameObject);
-            }
-			StopRewind();
-		}
-
 	}
 
 	void Record()
@@ -74,16 +46,24 @@ public class TimeBody : MonoBehaviour
 		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
 	}
 
-	public void StartRewind()
+	/*public void StartRewind()
 	{
-
-		isRewinding = true;
+		rb.velocity = new Vector3(0, 0, 0);
 		rb.isKinematic = true;
+		PointInTime pointInTime = pointsInTime[pointsInTime.Count - 1];
+		transform.position = pointInTime.position;
+		transform.rotation = pointInTime.rotation;
+		pointsInTime.Clear();
 	}
 
 	public void StopRewind()
 	{
 		isRewinding = false;
 		rb.isKinematic = false;
+	}*/
+
+	public void TakePosition(float time_left)
+    {
+		start_pos = pointsInTime[pointsInTime.Count - 1].position;
 	}
 }

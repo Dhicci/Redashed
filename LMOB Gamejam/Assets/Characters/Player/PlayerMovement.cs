@@ -35,16 +35,19 @@ public class PlayerMovement : MonoBehaviour
 				crouch = false;
 			}
 		}
+		else
+        {
+			horizontalMove = 0;
+			jump = false;
+			crouch = false;
+        }
 	}
 
 	void FixedUpdate()
 	{
-		if (time_out == false)
-        {
-			// Move our character
+			// Move character
 			controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
 			jump = false;
-		}
 		
 	}
 }

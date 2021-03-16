@@ -19,7 +19,10 @@ public class TriggerKill : MonoBehaviour
             Debug.Log("moi");
             game_manager.GetComponent<GameManager>().PlayerDeath();
         }
-        Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
