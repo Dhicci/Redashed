@@ -7,7 +7,7 @@ public class Pause : MonoBehaviour
 {
 
     public GameObject player;
-    public Canvas my_canvas;
+    public GameObject my_canvas;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class Pause : MonoBehaviour
     public void OnTriggerEnter2D()
     {
         Debug.Log("k");
-        my_canvas.enabled = true;
+        my_canvas.SetActive(true);
     }
 
 }

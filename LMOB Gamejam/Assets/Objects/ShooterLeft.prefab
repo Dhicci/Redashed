@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1385299744753869480}
   - component: {fileID: 1385299744753869478}
   m_Layer: 0
-  m_Name: Shooter
+  m_Name: ShooterLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

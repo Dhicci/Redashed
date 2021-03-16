@@ -7,26 +7,30 @@ public class TimeBody : MonoBehaviour
 
 	bool isRewinding = false;
 
-	public float recordTime = 5f;
+	public float recordTime = 7f;
 
 	List<PointInTime> pointsInTime;
 
-	Rigidbody rb;
+	Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start()
 	{
 		pointsInTime = new List<PointInTime>();
-		rb = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Return))
+        {
 			StartRewind();
+		}
 		if (Input.GetKeyUp(KeyCode.Return))
+        {
 			StopRewind();
+		}
 	}
 
 	void FixedUpdate()
@@ -48,6 +52,7 @@ public class TimeBody : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("KKKKKK");
 			StopRewind();
 		}
 
