@@ -7,13 +7,18 @@ public class TimeBody : MonoBehaviour
 
 	public bool isRewinding = false;
 
-	public bool destroy_after = false;
+	//public bool destroy_after = false;
 
 	public float recordTime = 2f;
 
 	public List<PointInTime> pointsInTime;
 
 	Rigidbody2D rb;
+
+	float rewind_time;
+	float timer;
+	bool still_rewinding = false;
+	Vector3 still_position;
 
 	// Use this for initialization
 	void Start()
@@ -25,14 +30,14 @@ public class TimeBody : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (timer > -1)
         {
-			StartRewind();
-		}
-		if (Input.GetKeyUp(KeyCode.Return))
-        {
-			StopRewind();
-		}
+			timer += Time.deltaTime;
+			if (timer >= rewind_time)
+            {
+				still_rewinding = false;
+            }
+        }
 	}
 
 	void FixedUpdate()
@@ -50,19 +55,21 @@ public class TimeBody : MonoBehaviour
 			PointInTime pointInTime = pointsInTime[0];
 			transform.position = pointInTime.position;
 			transform.rotation = pointInTime.rotation;
+			still_position = pointInTime.position;
 			pointsInTime.RemoveAt(0);
 		}
 		else
 		{
-
-			//if(destroy_after == true)
-			//{
-			Debug.Log("XD");
-			Destroy(gameObject);
-            //}
-			pointsInTime.Clear();
-			StopRewind();
-			
+			transform.position = still_position;
+			if (still_rewinding == false)
+            {
+				pointsInTime.Clear();
+				StopRewind();
+			}
+            else
+            {
+				Debug.Log(":");
+            }
 		}
 
 	}
@@ -77,9 +84,11 @@ public class TimeBody : MonoBehaviour
 		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
 	}
 
-	public void StartRewind()
+	public void StartRewind(float t)
 	{
-
+		still_rewinding = true;
+		rewind_time = t;
+		timer = 0;
 		isRewinding = true;
 		rb.isKinematic = true;
 	}

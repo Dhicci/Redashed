@@ -19,11 +19,6 @@ public class GameManager : MonoBehaviour
         if (time_left >= 0)
         {
             time_left -= Time.deltaTime;
-            /*if (main.isRewinding == false)
-            {
-                Continue();
-                time_left = -1;
-            }*/
         }
         if (time_left <= 0 && k == true)
         {
@@ -54,36 +49,21 @@ public class GameManager : MonoBehaviour
         TimeBody[] things = FindObjectsOfType<TimeBody>();
         foreach(TimeBody thing in things)
         {
-            thing.StartRewind();
-            /*if (thing.pointsInTime.Count > max_count)
+            thing.StartRewind(rewind_time);
+            /*if(thing.pointsInTime.Count * Time.fixedDeltaTime > rewind_time)
             {
-                max_count = thing.pointsInTime.Count;
-                main = thing;
+                thing.destroy_after = true;
             }*/
-            if(thing.pointsInTime.Count * Time.fixedDeltaTime > rewind_time)
-            {
-                thing.destroy_after = true;
-            }
-
         }
-        /*foreach (TimeBody thing in things)
-        {
-            if (thing.pointsInTime.Count < max_count)
-            {
-                thing.destroy_after = true;
-            }
-        }*/
 
         //Rewind player
         player.GetComponent<PlayerTimeBody>().TakePosition(player_rewind_time);
-
-        
-
     }
 
     //Continue all movement
     public void Continue()
     {
+        rewind = false;
         Debug.Log("shooting and player moving");
         image.SetActive(false);
         Shooter[] shooters = FindObjectsOfType<Shooter>();

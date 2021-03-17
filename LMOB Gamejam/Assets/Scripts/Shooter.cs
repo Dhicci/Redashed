@@ -17,16 +17,19 @@ public class Shooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time_left -= Time.deltaTime;
         if (time_out == false)
         {
+            time_left -= Time.deltaTime;
             if (time_left <= 0)
             {
                 time_left = shoot_delay;
                 Shoot();
             }
         }
-        
+        else
+        {
+            time_left = shoot_delay;
+        }
         
     }
 
