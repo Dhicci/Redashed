@@ -9,7 +9,7 @@ public class TimeBody : MonoBehaviour
 
 	public bool destroy_after = false;
 
-	public float recordTime = 5f;
+	public float recordTime = 2f;
 
 	public List<PointInTime> pointsInTime;
 
@@ -54,11 +54,15 @@ public class TimeBody : MonoBehaviour
 		}
 		else
 		{
-			if(destroy_after == true)
-            {
-				Destroy(gameObject);
-            }
+
+			//if(destroy_after == true)
+			//{
+			Debug.Log("XD");
+			Destroy(gameObject);
+            //}
+			pointsInTime.Clear();
 			StopRewind();
+			
 		}
 
 	}

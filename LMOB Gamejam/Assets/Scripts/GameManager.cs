@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject image;
     public GameObject player;
     public bool rewind = false;
+    public float player_rewind_time;
     public float rewind_time;
     private float time_left = -1;
     bool k = false;
@@ -34,9 +35,21 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
+
         image.SetActive(true);
         k = true;
         rewind = true;
+
+        //pause all actors
+        Shooter[] shooters = FindObjectsOfType<Shooter>();
+        foreach (Shooter shooter in shooters)
+        {
+            shooter.time_out = true;
+        }
+        time_left = rewind_time;
+        //Pause player controlls
+        player.GetComponent<PlayerMovement>().time_out = true;
+
         //Rewind all timebodies
         TimeBody[] things = FindObjectsOfType<TimeBody>();
         foreach(TimeBody thing in things)
@@ -47,7 +60,7 @@ public class GameManager : MonoBehaviour
                 max_count = thing.pointsInTime.Count;
                 main = thing;
             }*/
-            if(thing.pointsInTime.Count * Time.fixedDeltaTime < rewind_time)
+            if(thing.pointsInTime.Count * Time.fixedDeltaTime > rewind_time)
             {
                 thing.destroy_after = true;
             }
@@ -62,23 +75,16 @@ public class GameManager : MonoBehaviour
         }*/
 
         //Rewind player
-        player.GetComponent<PlayerTimeBody>().TakePosition(rewind_time);
+        player.GetComponent<PlayerTimeBody>().TakePosition(player_rewind_time);
 
-        //pause all actors
-        Shooter[] shooters = FindObjectsOfType<Shooter>();
-        foreach(Shooter shooter in shooters)
-        {
-            shooter.time_out = true;
-        }
-        time_left = rewind_time;
-        //Pause player controlls
-        player.GetComponent<PlayerMovement>().time_out = true;
+        
 
     }
 
     //Continue all movement
     public void Continue()
     {
+        Debug.Log("shooting and player moving");
         image.SetActive(false);
         Shooter[] shooters = FindObjectsOfType<Shooter>();
         foreach (Shooter shooter in shooters)

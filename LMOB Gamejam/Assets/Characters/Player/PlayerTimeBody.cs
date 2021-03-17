@@ -9,7 +9,7 @@ public class PlayerTimeBody : MonoBehaviour
 
 	public bool destroy_after = false;
 
-	public float recordTime = 7f;
+	public float recordTime = 2f;
 
 	public List<PointInTime> pointsInTime;
 
