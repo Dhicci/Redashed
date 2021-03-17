@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         rewind = false;
-        Debug.Log("shooting and player moving");
         image.SetActive(false);
         Shooter[] shooters = FindObjectsOfType<Shooter>();
         foreach (Shooter shooter in shooters)
@@ -73,6 +72,7 @@ public class GameManager : MonoBehaviour
         }
 
         player.GetComponent<PlayerMovement>().time_out = false;
+        Time.timeScale = 0;
     }
 
 }

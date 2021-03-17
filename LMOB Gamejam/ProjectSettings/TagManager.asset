@@ -40,15 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Foreground
-    uniqueID: 3536352925
-    locked: 0
-  - name: Player
-    uniqueID: 1091557691
+  - name: Background
+    uniqueID: 3169827687
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 3169827687
+  - name: Player
+    uniqueID: 1091557691
+    locked: 0
+  - name: Foreground
+    uniqueID: 3536352925
     locked: 0

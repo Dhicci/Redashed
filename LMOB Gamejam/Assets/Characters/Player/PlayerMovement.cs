@@ -13,10 +13,24 @@ public class PlayerMovement : MonoBehaviour
 	bool jump = false;
 	bool crouch = false;
 	public bool time_out = false;
+	bool ground_true = false;
 
 	// Update is called once per frame
 	void Update()
 	{
+		if (Time.timeScale == 0)
+        {
+			if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetButtonDown("Crouch"))
+            {
+				Time.timeScale = 1;
+            }
+			else if(Input.GetButtonDown("Jump"))
+            {
+				Time.timeScale = 1;
+				jump = true;
+				ground_true = true;
+			}
+        }
 		if (time_out == false)
         {
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
@@ -40,13 +54,14 @@ public class PlayerMovement : MonoBehaviour
 			horizontalMove = 0;
 			jump = false;
 			crouch = false;
+			ground_true = false;
         }
 	}
 
 	void FixedUpdate()
 	{
 			// Move character
-			controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+			controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, ground_true);
 			jump = false;
 		
 	}

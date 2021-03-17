@@ -12,6 +12,8 @@ public class CharacterController : MonoBehaviour
 	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 	[SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
+	public Animator anim;
+
 	const float k_GroundedRadius = .6f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
@@ -62,7 +64,12 @@ public class CharacterController : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+    private void Update()
+    {
+		anim.SetFloat("rising", m_Rigidbody2D.velocity.y);
+    }
+
+    public void Move(float move, bool crouch, bool jump, bool ground_true)
 	{
 		jump_block = false;
 		// If crouching, check to see if the character can stand up
@@ -113,6 +120,14 @@ public class CharacterController : MonoBehaviour
 			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			if (move != 0)
+            {
+				anim.SetBool("running", true);
+            }
+            else
+            {
+				anim.SetBool("running", false);
+			}
 
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !m_FacingRight)
@@ -132,6 +147,11 @@ public class CharacterController : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
+			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+		}
+		else if(jump && ground_true)
+        {
+			ground_true = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
