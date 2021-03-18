@@ -60,9 +60,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-			// Move character
-			controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, ground_true);
-			jump = false;
+		// Move character
+		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, ground_true);
+		ground_true = false;
+		jump = false;
 		
 	}
 }

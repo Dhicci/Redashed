@@ -8,9 +8,8 @@ public class BulletMove : MonoBehaviour
     public float speed;
     public Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    void Start()
+    public void BulletDirection(Vector2 where)
     {
-        rb.velocity = transform.right * speed;
+        rb.velocity = where * speed;
     }
 }

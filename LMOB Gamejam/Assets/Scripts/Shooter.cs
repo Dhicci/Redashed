@@ -6,6 +6,7 @@ public class Shooter : MonoBehaviour
 {
     public bool time_out;
     public GameObject bullet_prefab;
+    private GameObject Bullet;
     public Transform fire_point;
     public float shoot_delay = 3.0f;
     float time_left;
@@ -35,7 +36,9 @@ public class Shooter : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(bullet_prefab, fire_point.position, fire_point.rotation);
+        Bullet = Instantiate(bullet_prefab, fire_point.position, fire_point.rotation);
+        Vector3 local_velocity = Vector3.ClampMagnitude(new Vector3(1, 0, 0), 1);
+        Bullet.GetComponent<BulletMove>().BulletDirection(transform.right);
     }
 
 }
