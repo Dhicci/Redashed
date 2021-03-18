@@ -14,13 +14,16 @@ public class CharacterController : MonoBehaviour
 
 	public Animator anim;
 
-	const float k_GroundedRadius = .6f; // Radius of the overlap circle to determine if grounded
+	const float k_GroundedRadius = .4f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 	private bool jump_block = false;
+	private int jump_count = 0;
+	private float timer;
+	public float doublejump_timer = 3;
 
 	[Header("Events")]
 	[Space]
@@ -142,20 +145,21 @@ public class CharacterController : MonoBehaviour
 				Flip();
 			}
 		}
-		// If the player should jump...
-		if (m_Grounded && jump && !jump_block)
+
+		// If the player should jump.
+		if (m_Grounded&& jump && !jump_block)
 		{
-			// Add a vertical force to the player.
+
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
+
 		else if(jump && ground_true == true)
         {
 			ground_true = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
-
 
 	private void Flip()
 	{

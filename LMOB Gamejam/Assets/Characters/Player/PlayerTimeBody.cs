@@ -15,6 +15,8 @@ public class PlayerTimeBody : MonoBehaviour
 
 	Rigidbody2D rb;
 
+	public Animator anim;
+
 	Vector3 start_pos, drift_pos;
 
 	private float timer = 0;
@@ -57,6 +59,7 @@ public class PlayerTimeBody : MonoBehaviour
 		drift_pos = transform.position;
 		is_drifting = true;
 		rb.isKinematic = true;
+		anim.SetBool("ghost", true);
 	}
 
 	private void StopDrift()
@@ -65,6 +68,7 @@ public class PlayerTimeBody : MonoBehaviour
 		rb.isKinematic = false;
 		is_drifting = false;
 		transform.position = start_pos;
+		anim.SetBool("ghost", false);
 		pointsInTime.Clear();
 		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
 	}

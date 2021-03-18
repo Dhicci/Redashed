@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
-
         image.SetActive(true);
         k = true;
         rewind = true;

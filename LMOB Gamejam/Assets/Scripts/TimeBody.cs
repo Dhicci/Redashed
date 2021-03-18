@@ -66,10 +66,7 @@ public class TimeBody : MonoBehaviour
 				pointsInTime.Clear();
 				StopRewind();
 			}
-            else
-            {
-				Debug.Log(":");
-            }
+        
 		}
 
 	}
