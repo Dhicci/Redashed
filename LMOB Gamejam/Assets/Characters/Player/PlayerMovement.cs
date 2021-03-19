@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				crouch = true;
 			}
-			else if (Input.GetButtonUp("Crouch") || Input.GetKeyDown(KeyCode.DownArrow))
+			else if (Input.GetButtonUp("Crouch") || Input.GetKeyUp(KeyCode.DownArrow))
 			{
 				crouch = false;
 			}
