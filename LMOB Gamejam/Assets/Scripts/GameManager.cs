@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject image;
     public GameObject player;
+    public GameObject finish;
     public bool rewind = false;
     public float player_rewind_time;
     public float rewind_time;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         //Rewind player
         player.GetComponent<PlayerTimeBody>().TakePosition(player_rewind_time);
+        finish.GetComponent<LevelComplete>().restarts += 1;
     }
 
     //Continue all movement
