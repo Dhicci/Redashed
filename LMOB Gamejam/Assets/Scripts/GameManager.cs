@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
         if (time_left >= 0)
         {
             time_left -= Time.deltaTime;

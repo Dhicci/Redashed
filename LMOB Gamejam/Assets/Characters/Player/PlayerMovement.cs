@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 	public CharacterController controller;
+	public Animator anim;
 
 	public float runSpeed = 40f;
 
@@ -14,13 +15,14 @@ public class PlayerMovement : MonoBehaviour
 	bool crouch = false;
 	public bool time_out = false;
 	bool ground_true = false;
+	bool dash = false;
 
 	// Update is called once per frame
 	void Update()
 	{
 		if (Time.timeScale == 0)
         {
-			if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetButtonDown("Crouch"))
+			if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetButtonDown("Crouch") || Input.GetButtonDown("Dash"))
             {
 				Time.timeScale = 1;
             }
@@ -30,11 +32,17 @@ public class PlayerMovement : MonoBehaviour
 				jump = true;
 				ground_true = true;
 			}
+			
         }
 		if (time_out == false)
         {
 			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
+
+			if (Input.GetButtonDown("Dash"))
+			{
+				dash = true;
+			}
 			if (Input.GetButtonDown("Jump"))
 			{
 				jump = true;
@@ -51,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else
         {
+			dash = false;
 			horizontalMove = 0;
 			jump = false;
 			crouch = false;
@@ -61,9 +70,9 @@ public class PlayerMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Move character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, ground_true);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump, ground_true, dash);
 		ground_true = false;
 		jump = false;
-		
+		dash = false;
 	}
 }

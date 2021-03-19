@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class CharacterController : MonoBehaviour
 {
@@ -21,9 +22,13 @@ public class CharacterController : MonoBehaviour
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 	private bool jump_block = false;
-	private int jump_count = 0;
-	private float timer;
-	public float doublejump_timer = 3;
+	public float dash_force;
+	private bool dashing = false;
+	private float dash_timer = 0.1f;
+	private float current_dash_timer;
+	private int dash_direction;
+	private float current_dash_cooldown;
+	public float dash_cooldown;
 
 	[Header("Events")]
 	[Space]
@@ -69,10 +74,14 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
+		if (current_dash_cooldown <= dash_cooldown)
+        {
+			current_dash_cooldown += Time.deltaTime;
+        }
 		anim.SetFloat("rising", m_Rigidbody2D.velocity.y);
     }
 
-    public void Move(float move, bool crouch, bool jump, bool ground_true)
+    public void Move(float move, bool crouch, bool jump, bool ground_true, bool dash)
 	{
 		jump_block = false;
 		// If crouching, check to see if the character can stand up
@@ -117,6 +126,43 @@ public class CharacterController : MonoBehaviour
 					m_wasCrouching = false;
 					OnCrouchEvent.Invoke(false);
 				}
+			}
+
+
+			if (dash && current_dash_cooldown >= dash_cooldown)
+            {
+				StartCoroutine(dash_enum());
+				current_dash_cooldown = 0;
+            }
+
+			IEnumerator dash_enum()
+            {
+				gameObject.tag = "Immune";
+				if (m_FacingRight)
+                {
+					dash_direction = 1;
+                }
+				else
+                {
+					dash_direction = -1;
+                }
+				dashing = true;
+				current_dash_timer = dash_timer;
+				m_Rigidbody2D.velocity = Vector2.zero;
+				anim.Play("robot_dash");
+				yield return new WaitForSeconds(0.3f);
+				gameObject.tag = "Player";
+				dashing = false;
+			}
+
+			if (dashing)
+			{
+				m_Rigidbody2D.velocity = transform.right * dash_direction * dash_force;
+				current_dash_timer -= Time.deltaTime;
+				if (current_dash_timer <= 0)
+                {
+					dashing = false;
+                }
 			}
 
 			// Move the character by finding the target velocity
