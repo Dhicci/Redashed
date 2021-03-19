@@ -87,10 +87,12 @@ public class CharacterController : MonoBehaviour
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
 		{
+			anim.SetBool("crouching", false);
 			// If the character has a ceiling preventing them from standing up, keep them crouching
 			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
 			{
 				crouch = true;
+				anim.SetBool("crouching", true);
 				jump_block = true;
 			}
 		}
@@ -102,6 +104,7 @@ public class CharacterController : MonoBehaviour
 			// If crouching
 			if (crouch)
 			{
+				anim.SetBool("crouching", true);
 				if (!m_wasCrouching)
 				{
 					m_wasCrouching = true;
@@ -147,12 +150,14 @@ public class CharacterController : MonoBehaviour
 					dash_direction = -1;
                 }
 				dashing = true;
+				anim.SetBool("dashing", true);
 				current_dash_timer = dash_timer;
 				m_Rigidbody2D.velocity = Vector2.zero;
 				anim.Play("robot_dash");
 				yield return new WaitForSeconds(0.3f);
 				gameObject.tag = "Player";
 				dashing = false;
+				anim.SetBool("dashing", false);
 			}
 
 			if (dashing)

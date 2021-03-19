@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 2833547897160460144}
   - component: {fileID: 5812072954885160012}
   - component: {fileID: 2252116037354339827}
-  - component: {fileID: 1522381168}
-  - component: {fileID: 6873117244774512538}
+  - component: {fileID: 1895722698}
+  - component: {fileID: 1895722695}
+  - component: {fileID: 1895722694}
+  - component: {fileID: 1895722697}
   m_Layer: 0
   m_Name: SawbladeStanding
   m_TagString: Untagged
@@ -30,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 2833547897160460145}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.02, y: -0.51, z: 0}
-  m_LocalScale: {x: 0.37746668, y: 0.37746668, z: 1.1324}
+  m_LocalScale: {x: 0.11044838, y: 0.11044838, z: 0.33134514}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1125139609
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4190c8ed8697f954bb7f346169e5cd24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,21 +116,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f43e32a4aa5c5478f344143191e24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1522381168
-MonoBehaviour:
+--- !u!50 &1895722698
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2833547897160460145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91647303a98c38b4eae4bd99db9f9148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: {fileID: 0}
-  speed: 3
---- !u!95 &6873117244774512538
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!95 &1895722695
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -147,3 +156,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1895722694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833547897160460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91647303a98c38b4eae4bd99db9f9148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {fileID: 0}
+  speed: 3
+--- !u!114 &1895722697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833547897160460145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf04198dcbd62b4e91db16865ae7327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
+  recordTime: 1.5

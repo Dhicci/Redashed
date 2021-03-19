@@ -46,7 +46,10 @@ public class SawbladeMove : MonoBehaviour
         Gizmos.color = Color.red;
 
         //Draw the suspension
-        Gizmos.DrawLine(transform.position, destination.transform.position);
+        if (destination)
+        {
+            Gizmos.DrawLine(transform.position, destination.transform.position);
+        }
 #endif
     }
 }

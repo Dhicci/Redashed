@@ -22,11 +22,11 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (Time.timeScale == 0)
         {
-			if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetButtonDown("Crouch") || Input.GetButtonDown("Dash"))
+			if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetButtonDown("Crouch") || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetButtonDown("Dash"))
             {
 				Time.timeScale = 1;
             }
-			else if(Input.GetButtonDown("Jump"))
+			else if(Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.UpArrow))
             {
 				Time.timeScale = 1;
 				jump = true;
@@ -43,16 +43,16 @@ public class PlayerMovement : MonoBehaviour
 			{
 				dash = true;
 			}
-			if (Input.GetButtonDown("Jump"))
+			if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.UpArrow))
 			{
 				jump = true;
 			}
 
-			if (Input.GetButtonDown("Crouch"))
+			if (Input.GetButtonDown("Crouch") || Input.GetKeyDown(KeyCode.DownArrow))
 			{
 				crouch = true;
 			}
-			else if (Input.GetButtonUp("Crouch"))
+			else if (Input.GetButtonUp("Crouch") || Input.GetKeyDown(KeyCode.DownArrow))
 			{
 				crouch = false;
 			}

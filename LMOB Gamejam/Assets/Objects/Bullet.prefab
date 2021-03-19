@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRewinding: 0
-  recordTime: 1
+  recordTime: 1.5
 --- !u!58 &6556343314698137980
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class Shooter : MonoBehaviour
     public float shoot_delay = 3.0f;
     float time_left;
     bool r = false;
+    public float rewind_time;
 
     private void Start()
     {
@@ -35,10 +36,10 @@ public class Shooter : MonoBehaviour
         {
             if (r == false)
             {
-                time_left += 1.0f;
+                time_left += rewind_time;
                 if (time_left > shoot_delay)
                 {
-                    time_left = shoot_delay;
+                    time_left = time_left - shoot_delay;
                 }
                 r = true;
             }

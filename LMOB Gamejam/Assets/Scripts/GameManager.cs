@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         foreach (Shooter shooter in shooters)
         {
             shooter.time_out = true;
+            shooter.rewind_time = rewind_time;
         }
         time_left = rewind_time;
         //Pause player controlls
