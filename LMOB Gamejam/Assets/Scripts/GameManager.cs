@@ -54,10 +54,12 @@ public class GameManager : MonoBehaviour
         foreach(TimeBody thing in things)
         {
             thing.StartRewind(rewind_time);
-            /*if(thing.pointsInTime.Count * Time.fixedDeltaTime > rewind_time)
-            {
-                thing.destroy_after = true;
-            }*/
+        }
+
+        SawBladeTimeBody[] saw_things = FindObjectsOfType<SawBladeTimeBody>();
+        foreach (SawBladeTimeBody thing in saw_things)
+        {
+            thing.StartRewind(rewind_time);
         }
 
         //Rewind player
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
     //Continue all movement
     public void Continue()
     {
+        StartCoroutine(immunity());
         rewind = false;
         image.SetActive(false);
         Shooter[] shooters = FindObjectsOfType<Shooter>();
@@ -78,6 +81,13 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<PlayerMovement>().time_out = false;
         Time.timeScale = 0;
+    }
+
+    IEnumerator immunity()
+    {
+        player.tag = "Immune";
+        yield return new WaitForSeconds(0.2f);
+        player.tag = "Player";
     }
 
 }

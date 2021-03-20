@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeBody : MonoBehaviour
+public class SawBladeTimeBody : MonoBehaviour
 {
 
 	public bool isRewinding = false;
@@ -11,7 +11,7 @@ public class TimeBody : MonoBehaviour
 
 	public float recordTime = 2f;
 
-	public List<PointInTime> pointsInTime;
+	public List<SawBladePointInTime> pointsInTime;
 
 	Rigidbody2D rb;
 
@@ -23,7 +23,7 @@ public class TimeBody : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		pointsInTime = new List<PointInTime>();
+		pointsInTime = new List<SawBladePointInTime>();
 		rb = GetComponent<Rigidbody2D>();
 	}
 
@@ -31,13 +31,13 @@ public class TimeBody : MonoBehaviour
 	void Update()
 	{
 		if (timer > -1)
-        {
+		{
 			timer += Time.deltaTime;
 			if (timer >= rewind_time)
-            {
+			{
 				still_rewinding = false;
-            }
-        }
+			}
+		}
 	}
 
 	void FixedUpdate()
@@ -52,9 +52,10 @@ public class TimeBody : MonoBehaviour
 	{
 		if (pointsInTime.Count > 0)
 		{
-			PointInTime pointInTime = pointsInTime[0];
+			SawBladePointInTime pointInTime = pointsInTime[0];
 			transform.position = pointInTime.position;
 			transform.rotation = pointInTime.rotation;
+			gameObject.GetComponent<SawbladeMove>().going = pointInTime.going;
 			still_position = pointInTime.position;
 			pointsInTime.RemoveAt(0);
 		}
@@ -62,11 +63,11 @@ public class TimeBody : MonoBehaviour
 		{
 			transform.position = still_position;
 			if (still_rewinding == false)
-            {
+			{
 				//pointsInTime.Clear();
 				StopRewind();
 			}
-        
+
 		}
 
 	}
@@ -78,7 +79,7 @@ public class TimeBody : MonoBehaviour
 			pointsInTime.RemoveAt(pointsInTime.Count - 1);
 		}
 
-		pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+		pointsInTime.Insert(0, new SawBladePointInTime(transform.position, transform.rotation, gameObject.GetComponent<SawbladeMove>().going));
 	}
 
 	public void StartRewind(float t)

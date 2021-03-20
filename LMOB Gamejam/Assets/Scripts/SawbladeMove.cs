@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class SawbladeMove : MonoBehaviour
 {
-
+    private GameObject game_manager;
     public GameObject destination;
     public float speed;
     Vector3 start_pos;
-    bool going = true;
+    public bool going = true;
     // Start is called before the first frame update
     void Start()
     {
         start_pos = transform.position;
+        game_manager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (destination)
         {
-            if (going == true)
+            if (game_manager.GetComponent<GameManager>().rewind == false)
             {
-                transform.position = Vector2.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+                if (going == true)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, start_pos, speed * Time.deltaTime);
+                }
             }
-            else
-            {
-                transform.position = Vector2.MoveTowards(transform.position, start_pos, speed * Time.deltaTime);
-            }
+            
             if (transform.position == destination.transform.position && going == true)
             {
                 going = false;
@@ -37,7 +43,7 @@ public class SawbladeMove : MonoBehaviour
                 going = true;
             }
         }
-        
+
     }
 
     private void OnDrawGizmosSelected()

@@ -17,9 +17,21 @@ public class SawbladeKill : MonoBehaviour
         //Kill player
         if (collision.gameObject.tag == "Player")
         {
-            gameObject.GetComponent<AudioSource>().Play();
             if (game_manager.GetComponent<GameManager>().rewind == false)
             {
+                gameObject.GetComponent<AudioSource>().Play();
+                game_manager.GetComponent<GameManager>().PlayerDeath();
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //Kill player
+        if (collision.gameObject.tag == "Player")
+        {
+            if (game_manager.GetComponent<GameManager>().rewind == false)
+            {
+                gameObject.GetComponent<AudioSource>().Play();
                 game_manager.GetComponent<GameManager>().PlayerDeath();
             }
         }

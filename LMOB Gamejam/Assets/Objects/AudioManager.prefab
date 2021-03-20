@@ -46,12 +46,12 @@ MonoBehaviour:
   sounds:
   - name: Rewind
     clip: {fileID: 8300000, guid: 18bbaa6b8f73c74468c2326f73ef4f2f, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 0.7
     source: {fileID: 0}
   - name: Dash
     clip: {fileID: 8300000, guid: 3df1b69c3447de6468509d14e7414f7d, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1.11
     source: {fileID: 0}
   - name: Jump
@@ -61,31 +61,31 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Land
     clip: {fileID: 8300000, guid: 2621c82fa5f7e904284cace3763c147e, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 0.78
     source: {fileID: 0}
   - name: 1
     clip: {fileID: 8300000, guid: c2c2b458aa3427a478a71beadbb54874, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
   - name: 2
     clip: {fileID: 8300000, guid: c97581b82d021a24eb8c300f5be81dcd, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
   - name: 3
     clip: {fileID: 8300000, guid: 8a073fb8dae729943967133a7e308316, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
   - name: 4
     clip: {fileID: 8300000, guid: 5aa6cd0ed504807479ac979ada318d2a, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
   - name: 5
     clip: {fileID: 8300000, guid: 3a785b0a87707db489d8ea5900d6234c, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}

@@ -30,6 +30,7 @@ public class CharacterController : MonoBehaviour
 	private float current_dash_cooldown;
 	public float dash_cooldown;
 	private int r;
+	private float g;
 
 	private bool can_land = true;
 
@@ -166,6 +167,8 @@ public class CharacterController : MonoBehaviour
 					dash_direction = -1;
                 }
 				dashing = true;
+				g = m_Rigidbody2D.gravityScale;
+				m_Rigidbody2D.gravityScale = 0;
 				FindObjectOfType<AudioManager>().Play("Dash");
 				anim.SetBool("dashing", true);
 				current_dash_timer = dash_timer;
@@ -177,6 +180,7 @@ public class CharacterController : MonoBehaviour
 				gameObject.tag = "Player";
 				dashing = false;
 				anim.SetBool("dashing", false);
+				m_Rigidbody2D.gravityScale = g;
 			}
 
 			if (dashing)
@@ -199,6 +203,7 @@ public class CharacterController : MonoBehaviour
             }
             else
             {
+
 				anim.SetBool("running", false);
 			}
 
