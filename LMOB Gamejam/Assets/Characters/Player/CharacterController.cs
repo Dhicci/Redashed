@@ -15,7 +15,7 @@ public class CharacterController : MonoBehaviour
 
 	public Animator anim;
 
-	const float k_GroundedRadius = .4f; // Radius of the overlap circle to determine if grounded
+	const float k_GroundedRadius = .3f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
@@ -29,6 +29,9 @@ public class CharacterController : MonoBehaviour
 	private int dash_direction;
 	private float current_dash_cooldown;
 	public float dash_cooldown;
+	private int r;
+
+	private bool can_land = true;
 
 	[Header("Events")]
 	[Space]
@@ -65,12 +68,25 @@ public class CharacterController : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				
 				if (!wasGrounded)
+					if (can_land)
+                    {
+						can_land = false;
+						StartCoroutine(Land());
+					}
 					OnLandEvent.Invoke();
 			}
 		}
 	}
 
+
+	IEnumerator Land()
+    {
+		FindObjectOfType<AudioManager>().Play("Land");
+		yield return new WaitForSeconds(0.3f);
+		can_land = true;
+	}
 
     private void Update()
     {
@@ -150,11 +166,14 @@ public class CharacterController : MonoBehaviour
 					dash_direction = -1;
                 }
 				dashing = true;
+				FindObjectOfType<AudioManager>().Play("Dash");
 				anim.SetBool("dashing", true);
 				current_dash_timer = dash_timer;
 				m_Rigidbody2D.velocity = Vector2.zero;
 				anim.Play("robot_dash");
+
 				yield return new WaitForSeconds(0.3f);
+
 				gameObject.tag = "Player";
 				dashing = false;
 				anim.SetBool("dashing", false);
@@ -202,12 +221,14 @@ public class CharacterController : MonoBehaviour
 		{
 
 			m_Grounded = false;
+			FindObjectOfType<AudioManager>().Play("Jump");
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 
 		else if(jump && ground_true == true)
         {
 			ground_true = false;
+			FindObjectOfType<AudioManager>().Play("Jump");
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
@@ -221,5 +242,11 @@ public class CharacterController : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	public void PlayRunSound()
+    {
+		r = Random.Range(1, 6);
+		FindObjectOfType<AudioManager>().Play("" + r);
 	}
 }

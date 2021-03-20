@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
         k = true;
         rewind = true;
 
+        FindObjectOfType<AudioManager>().Play("Rewind");
+
         //pause all actors
         Shooter[] shooters = FindObjectsOfType<Shooter>();
         foreach (Shooter shooter in shooters)

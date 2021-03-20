@@ -17,6 +17,7 @@ public class SawbladeKill : MonoBehaviour
         //Kill player
         if (collision.gameObject.tag == "Player")
         {
+            gameObject.GetComponent<AudioSource>().Play();
             if (game_manager.GetComponent<GameManager>().rewind == false)
             {
                 game_manager.GetComponent<GameManager>().PlayerDeath();

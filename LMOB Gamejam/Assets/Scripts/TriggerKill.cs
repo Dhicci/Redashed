@@ -25,21 +25,33 @@ public class TriggerKill : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         //Kill player
         if (collision.gameObject.tag == "Player")
         {
+            gameObject.GetComponent<AudioSource>().Play();
             if (game_manager.GetComponent<GameManager>().rewind == false)
             {
                 game_manager.GetComponent<GameManager>().PlayerDeath();
             }
         }
+
         if ((collision.gameObject.tag == "Shooter" && immune) || collision.gameObject.tag == "Player")
         {
         }
         else
         {
-            Destroy(gameObject);
+            StartCoroutine(BellTolls());
         }
+    }
+
+    IEnumerator BellTolls()
+    {
+        gameObject.GetComponent<AudioSource>().Play();
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
     }
 
 }

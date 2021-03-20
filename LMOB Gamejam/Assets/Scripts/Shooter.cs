@@ -40,6 +40,19 @@ public class Shooter : MonoBehaviour
                 if (time_left > shoot_delay)
                 {
                     time_left = time_left - shoot_delay;
+                    if (time_left > shoot_delay)
+                    {
+                        time_left = time_left - shoot_delay;
+                        if (time_left > shoot_delay)
+                        {
+                            time_left = time_left - shoot_delay;
+                            if (time_left > shoot_delay)
+                            {
+                                time_left = time_left - shoot_delay;
+
+                            }
+                        }
+                    }
                 }
                 r = true;
             }
@@ -50,6 +63,7 @@ public class Shooter : MonoBehaviour
 
     public void Shoot()
     {
+        gameObject.GetComponent<AudioSource>().Play();
         anim.SetTrigger("shoot");
         Bullet = Instantiate(bullet_prefab, fire_point.position, fire_point.rotation);
         Vector3 local_velocity = Vector3.ClampMagnitude(new Vector3(1, 0, 0), 1);
